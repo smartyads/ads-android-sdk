@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SampleApp</string>
+    <integer name="distribution_type">0</integer>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/no_banner"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:visibility="gone"/>
+
+
+    <TextView
+        android:id="@+id/loadTime"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/banner_container"
+        android:layout_marginTop="14dp"
+        android:layout_centerHorizontal="true"
+
+        android:visibility="gone"
+        />
+
+
+    <Button
+        android:id="@+id/refresh"
+        android:text="Refresh"
+
+        android:onClick="recreateActivity"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>
