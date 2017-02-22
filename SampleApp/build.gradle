@@ -2,17 +2,21 @@ apply plugin: 'com.android.application'
 
 def keystorePropertiesFile = file("$System.env.HOME/.android/keystore.properties")
 def keystoreProperties = new Properties()
-if(keystorePropertiesFile.exists()){
+if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}else{
+    keystoreProperties = null
 }
 
 android {
     signingConfigs {
-        config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
+        if(keystoreProperties != null){
+            config {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
         }
     }
     compileSdkVersion 25
@@ -21,13 +25,13 @@ android {
         applicationId "com.smartyads.sampleapp"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 5
-        versionName "0.1.7"
+        versionCode 6
+        versionName "0.1.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.config
+            if(keystoreProperties != null) signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -38,13 +42,17 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.android.support:recyclerview-v7:25.1.1'
+
+    releaseCompile project(path: ':ad-container', configuration: 'release')
+
     debugCompile 'ch.acra:acra:4.9.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    debugCompile project(path: ':ad-container', configuration: 'debug')
+
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     androidTestCompile(name: 'cloudtestingscreenshotter_lib', ext: 'aar')
-    compile project(':ad-container')
 }

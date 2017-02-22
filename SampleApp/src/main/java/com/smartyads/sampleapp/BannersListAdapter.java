@@ -18,7 +18,7 @@ class BannersListAdapter extends ArrayAdapter<Banner> implements AdapterView.OnI
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent showBannerActivity = new Intent(getContext(), BannerActivity.class);
         Banner banner = getItem(position);
-        showBannerActivity.putExtra(BANNER_LAYOUT_INTENT_KEY, banner.layout);
+        showBannerActivity.putExtra(BANNER_LAYOUT_INTENT_KEY, banner.getId());
         getContext().startActivity(showBannerActivity);
     }
 }

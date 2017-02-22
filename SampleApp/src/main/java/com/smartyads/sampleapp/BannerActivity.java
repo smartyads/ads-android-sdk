@@ -1,23 +1,24 @@
 package com.smartyads.sampleapp;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.smartyads.adcontainer.AdContainer;
 import com.smartyads.adcontainer.BannerContainer;
 import com.smartyads.adcontainer.BannerOnLoadListener;
+import com.smartyads.adcontainer.InterstitialAdContainer;
 
 public class BannerActivity extends AppCompatActivity {
 
     public static final String BANNER_LAYOUT_INTENT_KEY = "banner";
 
     private ProgressDialog progressDialog;
-    private BannerContainer bannerContainer;
+    private AdContainer bannerContainer;
     private TextView timeView;
     private TextView noBannerText;
 
@@ -33,22 +34,14 @@ public class BannerActivity extends AppCompatActivity {
         noBannerText = (TextView) findViewById(R.id.no_banner);
         timeView = (TextView) findViewById(R.id.loadTime);
 
-        inflateBannerContainer();
+        int bannerTypeId = getIntent().getIntExtra(BANNER_LAYOUT_INTENT_KEY, -1);
+        Banner banner = Banner.fromId(bannerTypeId);
+        setTitle(banner.toString());
+        bannerContainer = createContainer(banner);
 
-        BannerOnLoadListener bannerOnLoadListener = createBannerOnLoadListener();
-        startRecordTime();
-        bannerContainer.loadAd(bannerOnLoadListener);
         progressDialog.show();
-    }
-
-    private void inflateBannerContainer(){
-        RelativeLayout rootView = (RelativeLayout) findViewById(R.id.root);
-
-        int layoutResource = getIntent().getIntExtra(BANNER_LAYOUT_INTENT_KEY, -1);
-        getLayoutInflater().inflate(layoutResource, rootView);
-
-        bannerContainer = (BannerContainer) findViewById(R.id.banner_container);
-        bannerContainer.setBackgroundColor(Color.LTGRAY);
+        bannerContainer.loadAd(createBannerOnLoadListener());
+        startRecordTime();
     }
 
     private BannerOnLoadListener createBannerOnLoadListener(){
@@ -60,6 +53,7 @@ public class BannerActivity extends AppCompatActivity {
                 stopRecordTime();
                 timeView.setText("Load time: "+getLoadTime()/1000.0);
                 timeView.setVisibility(View.VISIBLE);
+                bannerContainer.showAd();
             }
 
             @Override
@@ -98,8 +92,24 @@ public class BannerActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        bannerContainer.destroyContainer();
         dismissProgressDialog();
+        bannerContainer.destroy();
         super.onDestroy();
+    }
+
+    private AdContainer createContainer(Banner banner){
+        switch (banner){
+            case FULLSCREEN_BANNER:
+                return new InterstitialAdContainer(this, banner.bannerId);
+            default:
+                return inflateBannerContainer(banner);
+        }
+    }
+
+    public AdContainer inflateBannerContainer(Banner banner){
+        ViewGroup rootView = (ViewGroup) findViewById(R.id.root);
+        getLayoutInflater().inflate(banner.layout, rootView);
+
+        return  (BannerContainer) findViewById(R.id.banner_container);
     }
 }
