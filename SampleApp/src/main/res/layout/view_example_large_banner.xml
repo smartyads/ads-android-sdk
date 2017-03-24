@@ -9,7 +9,7 @@
     android:layout_centerHorizontal="true"
     android:layout_marginTop="10dp"
 
-    smartyads:bannerId="3730"
+    smartyads:adContainerId="3730"
     smartyads:banner_width="320dp"
     smartyads:banner_height="100dp"
     />

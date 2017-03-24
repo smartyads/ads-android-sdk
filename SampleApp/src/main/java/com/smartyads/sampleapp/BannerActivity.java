@@ -1,23 +1,26 @@
 package com.smartyads.sampleapp;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.smartyads.adcontainer.AdContainer;
 import com.smartyads.adcontainer.BannerContainer;
-import com.smartyads.adcontainer.BannerOnLoadListener;
 import com.smartyads.adcontainer.InterstitialAdContainer;
+import com.smartyads.adcontainer.InterstitialListener;
+
+import static android.view.View.GONE;
 
 public class BannerActivity extends AppCompatActivity {
 
     public static final String BANNER_LAYOUT_INTENT_KEY = "banner";
 
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     private AdContainer bannerContainer;
     private TextView timeView;
     private TextView noBannerText;
@@ -28,8 +31,7 @@ public class BannerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading Banner...");
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         noBannerText = (TextView) findViewById(R.id.no_banner);
         timeView = (TextView) findViewById(R.id.loadTime);
@@ -39,16 +41,21 @@ public class BannerActivity extends AppCompatActivity {
         setTitle(banner.toString());
         bannerContainer = createContainer(banner);
 
-        progressDialog.show();
         bannerContainer.loadAd(createBannerOnLoadListener());
         startRecordTime();
     }
 
-    private BannerOnLoadListener createBannerOnLoadListener(){
-        return new BannerOnLoadListener() {
+    private InterstitialListener createBannerOnLoadListener(){
+        return new InterstitialListener() {
+            @Override
+            public void closed() {
+                Log.d("[SmartyAds]", "Ad closed!");
+                Toast.makeText(BannerActivity.this, "Interstitial closed", Toast.LENGTH_SHORT).show();
+            }
+
             @Override
             public void onSuccess() {
-                dismissProgressDialog();
+                dismissProgressBar();
                 Log.d("[SmartyAds]", "Banner successfully loaded");
                 stopRecordTime();
                 timeView.setText("Load time: "+getLoadTime()/1000.0);
@@ -58,7 +65,7 @@ public class BannerActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Exception e) {
-                dismissProgressDialog();
+                dismissProgressBar();
                 Log.d("[SmartyAds]", "Cannot load ad: " + e.getMessage());
                 noBannerText.setText("Cannot load ad: " + e.getMessage());
                 noBannerText.setVisibility(View.VISIBLE);
@@ -80,9 +87,10 @@ public class BannerActivity extends AppCompatActivity {
         return t2 - t1;
     }
 
-    private void dismissProgressDialog(){
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
+    private void dismissProgressBar(){
+        if (progressBar != null) {
+            progressBar.setVisibility(GONE);
+            progressBar.clearAnimation();
         }
     }
 
@@ -92,7 +100,7 @@ public class BannerActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        dismissProgressDialog();
+        dismissProgressBar();
         bannerContainer.destroy();
         super.onDestroy();
     }
@@ -100,7 +108,7 @@ public class BannerActivity extends AppCompatActivity {
     private AdContainer createContainer(Banner banner){
         switch (banner){
             case FULLSCREEN_BANNER:
-                return new InterstitialAdContainer(this, banner.bannerId);
+                return new InterstitialAdContainer(this, banner.containerId);
             default:
                 return inflateBannerContainer(banner);
         }
@@ -109,7 +117,8 @@ public class BannerActivity extends AppCompatActivity {
     public AdContainer inflateBannerContainer(Banner banner){
         ViewGroup rootView = (ViewGroup) findViewById(R.id.root);
         getLayoutInflater().inflate(banner.layout, rootView);
-
-        return  (BannerContainer) findViewById(R.id.banner_container);
+        BannerContainer viewById = (BannerContainer) findViewById(R.id.banner_container);
+        viewById.setTag(R.id.banner_container);
+        return viewById;
     }
 }

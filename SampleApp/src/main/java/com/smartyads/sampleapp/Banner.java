@@ -4,7 +4,7 @@ import android.support.annotation.LayoutRes;
 
 enum Banner {
 
-    FULLSCREEN_BANNER(0, "3358"){
+    FULLSCREEN_BANNER(0, "3731"){
         @Override
         public String toString() {
             return "Fullscreen banner";
@@ -28,7 +28,7 @@ enum Banner {
             return " Large Banner 320x100";
         }
     },
-    FULL_BANNER(R.layout.view_example_full_banner, "3731"){
+    FULL_BANNER(R.layout.view_example_full_banner, "4405"){
         @Override
         public String toString() {
             return "Full-Size Banner(tablet) 468x60";
@@ -42,11 +42,11 @@ enum Banner {
     };
 
     public final @LayoutRes int layout;
-    public final String bannerId;
+    public final String containerId;
 
-    Banner(int layout, String bannerId) {
+    Banner(int layout, String containerId) {
         this.layout = layout;
-        this.bannerId = bannerId;
+        this.containerId = containerId;
     }
 
     public int getId(){

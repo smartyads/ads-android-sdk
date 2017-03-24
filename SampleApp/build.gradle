@@ -9,6 +9,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+    testBuildType "debug"
     signingConfigs {
         if(keystoreProperties != null){
             config {
@@ -35,24 +36,44 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{
+            signingConfig signingConfigs.config
+        }
+        mock{
+            initWith debug
+            android.sourceSets.mock.setRoot("src/debug")
+            signingConfig signingConfigs.config
+        }
+    }
+    sourceSets {
+        mock{
+            manifest.srcFile debug.manifest.srcFile
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/ASL2.0'
     }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:recyclerview-v7:25.1.1'
 
     releaseCompile project(path: ':ad-container', configuration: 'release')
 
-    debugCompile 'ch.acra:acra:4.9.0'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
-    debugCompile project(path: ':ad-container', configuration: 'debug')
+    mockCompile project(path: ':ad-container', configuration: 'mock')
+    mockCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    mockCompile 'ch.acra:acra:4.9.0'
 
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugCompile project(path: ':ad-container', configuration: 'debug')
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    debugCompile 'ch.acra:acra:4.9.0'
+
     testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    androidTestCompile 'com.android.support:support-annotations:25.1.1'
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.6.0'
+    androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile(name: 'cloudtestingscreenshotter_lib', ext: 'aar')
 }

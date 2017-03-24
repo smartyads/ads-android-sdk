@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">SampleApp</string>
+    <string name="interstitial_closed">Interstitial closed</string>
     <integer name="distribution_type">0</integer>
 </resources>
