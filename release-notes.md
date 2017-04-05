@@ -1,4 +1,7 @@
 Change Notes
+0.2.7
+ * Implemented ad caching functionality
+ * Created SdkConfig class for providing caching settings
 
 0.2.6
  * Implemented prerender functionality for banners

@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.smartyads.adcontainer.AdContainer;
 import com.smartyads.adcontainer.BannerContainer;
 import com.smartyads.adcontainer.InterstitialAdContainer;
-import com.smartyads.adcontainer.InterstitialListener;
+import com.smartyads.adcontainer.listener.InterstitialListener;
 
 import static android.view.View.GONE;
 
