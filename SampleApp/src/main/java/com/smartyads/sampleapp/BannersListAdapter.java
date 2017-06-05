@@ -1,5 +1,6 @@
 package com.smartyads.sampleapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -16,9 +17,21 @@ class BannersListAdapter extends ArrayAdapter<Banner> implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent showBannerActivity = new Intent(getContext(), BannerActivity.class);
         Banner banner = getItem(position);
+        Context context = getContext();
+        Intent showBannerActivity = new Intent(context, bannerActivityClassFactory(banner));
         showBannerActivity.putExtra(BANNER_LAYOUT_INTENT_KEY, banner.getId());
-        getContext().startActivity(showBannerActivity);
+        context.startActivity(showBannerActivity);
     }
+
+    private Class<? extends Activity> bannerActivityClassFactory(Banner banner){
+        switch (banner){
+            case FULLSCREEN_BANNER:
+            case VAST:
+                return FullscreenAdActivity.class;
+            default:
+                return BannerActivity.class;
+        }
+    }
+
 }

@@ -1,4 +1,14 @@
-Change Notes
+Release notes
+
+0.3.1
+ * Implemented VAST 2.0
+ * Added is #isLoaded() method to InterstitialAdContainer
+ * Updated SampleApp
+ * Fixed ad autoclick issue on banner cache phase
+
+0.2.8
+ * Fixed NPE on restart IntentService
+
 0.2.7
  * Implemented ad caching functionality
  * Created SdkConfig class for providing caching settings

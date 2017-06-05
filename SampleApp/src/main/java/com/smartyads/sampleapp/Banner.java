@@ -39,6 +39,12 @@ enum Banner {
         public String toString() {
             return "Leaderboard(tablet) 728x90";
         }
+    },
+    VAST(0, "5539"){
+        @Override
+        public String toString() {
+            return "VAST";
+        }
     };
 
     public final @LayoutRes int layout;

@@ -1,4 +1,13 @@
 <resources>
     <string name="interstitial_closed">Interstitial closed</string>
+
+    <string name="refresh_button">Refresh</string>
+    <string name="load_ad_button">Load Ad</string>
+    <string name="show_ad_button">Show Ad</string>
+
+    <string name="load_time">Load time: %.2f</string>
+    <string name="loading_failed">Cannot load ad: %s</string>
+    <string name="click_to_refresh">Click \'%s\' button to show ad</string>
+
     <integer name="distribution_type">0</integer>
 </resources>

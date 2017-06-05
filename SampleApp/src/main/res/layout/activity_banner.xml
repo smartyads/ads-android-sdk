@@ -7,17 +7,9 @@
     android:layout_height="match_parent"
     android:background="@color/colorDefaultBackground">
 
-    <TextView
-        android:id="@+id/no_banner"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:visibility="gone"/>
-
 
     <TextView
-        android:id="@+id/loadTime"
+        android:id="@+id/infoText"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,12 +17,12 @@
         android:layout_marginTop="14dp"
         android:layout_centerHorizontal="true"
 
-        android:visibility="gone"
+        android:visibility="visible"
         />
 
     <ProgressBar
         android:id="@+id/progressBar"
-        android:visibility="visible"
+        android:visibility="invisible"
         style="@android:style/Widget.Holo.ProgressBar.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +31,7 @@
 
     <Button
         android:id="@+id/refresh"
-        android:text="Refresh"
+        android:text="@string/refresh_button"
 
         android:onClick="recreateActivity"
 
