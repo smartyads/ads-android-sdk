@@ -7,10 +7,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.smartyads.adcontainer.InterstitialAdContainer;
+import com.smartyads.adcontainer.VideoContainer;
 import com.smartyads.adcontainer.listener.BannerOnLoadListener;
 import com.smartyads.adcontainer.listener.InterstitialListener;
 import com.smartyads.utils.StringUtils;
-import com.smartyads.vast.VideoContainer;
 
 import static com.smartyads.sampleapp.Banner.FULLSCREEN_BANNER;
 import static com.smartyads.sampleapp.Banner.VAST;

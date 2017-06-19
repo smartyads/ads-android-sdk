@@ -1,5 +1,10 @@
 Release notes
 
+0.3.3
+ * Supporting of VPAID 2.0
+ * Fixed: fullscreen 'move event' that causes ad click
+ * Fixed: 'remaining time' position
+
 0.3.1
  * Implemented VAST 2.0
  * Added is #isLoaded() method to InterstitialAdContainer
