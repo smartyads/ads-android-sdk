@@ -21,13 +21,13 @@ android {
         }
     }
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.smartyads.sampleapp"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 9
-        versionName "0.2.1"
+        versionCode 10
+        versionName "0.2.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

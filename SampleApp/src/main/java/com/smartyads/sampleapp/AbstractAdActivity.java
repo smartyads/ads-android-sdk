@@ -8,8 +8,16 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.smartyads.adcontainer.AdContainer;
 import com.smartyads.adcontainer.listener.BannerOnLoadListener;
+import com.smartyads.info.provided.Gender;
+import com.smartyads.info.provided.UserKeywords;
+import com.smartyads.info.provided.YearOfBirth;
 import com.smartyads.utils.StringUtils;
+
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Random;
 
 import static android.view.View.GONE;
 
@@ -29,6 +37,28 @@ public abstract class AbstractAdActivity extends AppCompatActivity {
         Banner banner = bannerFromIntent();
         setTitle(banner.toString());
         timeTracker = new TimeTracker();
+    }
+
+    void addTargetingData(AdContainer adContainer){
+        Random random = new Random();
+
+        Gender[] genders = Gender.values();
+        Gender randomGender = genders[random.nextInt(genders.length)];
+
+        int maxAge = 100;
+        YearOfBirth yearOfBirth = new YearOfBirth(
+                Calendar.getInstance().get(Calendar.YEAR) - maxAge
+                        + random.nextInt(maxAge)
+        );
+
+        UserKeywords userKeywords = new UserKeywords()
+                .addKeywords("interest 1", "interest 2")
+                .addKeywords(Collections.singletonList("interest 3"));
+
+        adContainer
+                .addTargetingData(randomGender)
+                .addTargetingData(yearOfBirth)
+                .addTargetingData(userKeywords);
     }
 
     void onAdLoadStarted(){

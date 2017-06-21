@@ -14,6 +14,8 @@ public class BannerActivity extends AbstractAdActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_banner);
         bannerContainer = inflateBannerContainer(bannerFromIntent());
+        addTargetingData(bannerContainer);
+
         super.onCreate(savedInstanceState);
 
         onAdLoadStarted();

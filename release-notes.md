@@ -1,5 +1,8 @@
 Release notes
 
+0.3.4
+ * Provided possibility to add targeting data: keywords, gender, year of birth
+
 0.3.3
  * Supporting of VPAID 2.0
  * Fixed: fullscreen 'move event' that causes ad click

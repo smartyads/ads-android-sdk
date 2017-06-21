@@ -26,6 +26,8 @@ public class FullscreenAdActivity extends AbstractAdActivity {
         setContentView(R.layout.activity_fullscreen_ad);
         super.onCreate(savedInstanceState);
         interstitialContainer = createContainer(bannerFromIntent());
+        addTargetingData(interstitialContainer);
+
         loadAdButton = (Button) findViewById(R.id.load_ad);
         showAdButton = (Button) findViewById(R.id.show_ad);
     }
