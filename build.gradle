@@ -18,8 +18,19 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        // Smarty Maven dependepcies
+        mavenCentral()
+        mavenLocal()
         flatDir {
             dirs '../libs'
+        }
+        maven { url "https://jitpack.io" }
+        maven { url "https://s3.amazonaws.com/moat-sdk-builds" }
+        maven { url "https://dl.bintray.com/smartyads/maven/" }
+
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
         }
     }
 }

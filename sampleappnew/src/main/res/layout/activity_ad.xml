@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.smartyads.sampleapp.AdActivity"
+    >
+
+  <LinearLayout
+      android:id="@+id/control_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      >
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/load_button"
+        android:layout_width="240dp"
+        android:layout_height="80dp"
+        android:layout_margin="16dp"
+        android:text="@string/load_button"
+        android:textSize="18sp"
+        />
+
+    <FrameLayout
+        android:id="@+id/ad_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        />
+
+    <TextView
+        android:id="@+id/status_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:padding="16dp"
+        />
+  </LinearLayout>
+
+  <RelativeLayout
+      android:id="@+id/loading_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:visibility="gone"
+      >
+
+    <TextView
+        android:id="@+id/loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="8dp"
+        android:textSize="20sp"
+        android:text="@string/loading_text"
+        />
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/loading_text"
+        android:layout_alignLeft="@id/loading_text"
+        android:layout_alignRight="@id/loading_text"
+        android:layout_alignStart="@id/loading_text"
+        android:layout_below="@id/loading_text"
+        android:indeterminate="true"
+        style="?android:attr/progressBarStyleHorizontal"
+        />
+
+  </RelativeLayout>
+
+</RelativeLayout>

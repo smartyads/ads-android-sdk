@@ -1,5 +1,11 @@
 Release notes
 
+0.4.5
+ * Native ads
+
+0.4.1
+ * Vertical video support
+
 0.3.4
  * Provided possibility to add targeting data: keywords, gender, year of birth
 

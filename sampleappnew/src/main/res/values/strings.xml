@@ -1,0 +1,18 @@
+<resources>
+  <integer name="distribution_type">0</integer>
+
+  <string name="app_name">SmartyAds Sample</string>
+  <string name="load_button">Load ad</string>
+  <string name="result_text" formatted="false">Time: %.3fs. Result: %s.</string>
+  <string name="loading_text">Loading advertising content</string>
+  <string name="interstitial_placement_id">6552</string>
+  <string name="video_placement_id">6656</string>
+  <string name="video_placement_id_horizontal">5539</string>
+  <string name="native_placement_id">6859</string>
+  <string name="medium_rectangle_placement_id">6555</string>
+  <string name="standard_banner_placement_id">6479</string>
+  <string name="large_banner_placement_id">6549</string>
+  <string name="full_size_banner_placement_id">4405</string>
+  <string name="leaderboard_placement_id">6558</string>
+
+</resources>
